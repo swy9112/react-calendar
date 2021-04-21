@@ -13,11 +13,13 @@ const Wrap = styled.tbody`
     -khtml-user-select: none;
     -webkit-user-select: none;
     user-select: none;
+    pointer-events: none;
   }
 
   td {
     width: 14.28571428571429%;
     padding-left: 10px;
+    cursor: pointer;
   }
 
   .today {
@@ -33,15 +35,40 @@ const Wrap = styled.tbody`
   }
 `;
 
+const Text = styled.div`
+  pointer-events: none;
+`;
+
 const CalendarBody = () => {
-  const { today, firstWeek, lastWeek, curYear } = useContext(CalendarContext);
+  const { today, firstWeek, lastWeek, curYear, memo, setMemo, setDataProp } = useContext(CalendarContext);
+
+  const dataClick = e => {
+    const popUpWrap = document.querySelector(".popUpWrap");
+    const innerNodes = e.target.childNodes;
+
+    setDataProp([
+      e.target.getAttribute("data-year"),
+      e.target.getAttribute("data-week"),
+      e.target.getAttribute("data-index")
+    ]);
+
+    let innerText;
+    for (let i = 0; i < innerNodes.length; i++) {
+      if (innerNodes[i].className.indexOf("listText") > 0) {
+        innerText = innerNodes[i].innerText;
+        document.querySelector(".textEditArea").value = innerText;
+      }
+    }
+
+    setMemo(
+      memo.filter(cur => {
+        return cur["text"].length > 0;
+      })
+    );
+    popUpWrap.style.display = "flex";
+  };
 
   const calendarArr = () => {
-    const memo = [
-      { year: 2021, weekList: 15, dateIndex: 5, text: "할일이 적당해" },
-      { year: 2021, weekList: 16, dateIndex: 1, text: "할일이 많아" },
-      { year: 2021, weekList: 17, dateIndex: 1, text: "할일이 없어" }
-    ];
     let result = [];
     let dataState = false;
     let week = firstWeek;
@@ -78,9 +105,16 @@ const CalendarBody = () => {
                 if (curYear === e.year && week === e.weekList && index === e.dateIndex) {
                   dataState = true;
                   return (
-                    <td key={index} className={dateStyle}>
+                    <td
+                      data-year={e.year}
+                      data-week={e.weekList}
+                      data-index={index}
+                      key={index}
+                      className={dateStyle}
+                      onClick={dataClick}
+                    >
                       <span>{days.format("D")}</span>
-                      <div>{e.text}</div>
+                      <Text className="listText">{e.text}</Text>
                     </td>
                   );
                 }
@@ -91,7 +125,14 @@ const CalendarBody = () => {
                 return memoResult;
               } else {
                 return (
-                  <td key={index} className={dateStyle}>
+                  <td
+                    data-year={curYear}
+                    data-week={week}
+                    data-index={index}
+                    key={index}
+                    className={dateStyle}
+                    onClick={dataClick}
+                  >
                     <span>{days.format("D")}</span>
                   </td>
                 );
