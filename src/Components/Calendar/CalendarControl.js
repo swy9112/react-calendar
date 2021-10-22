@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { CalendarContext } from "./App";
+import { CalendarContext } from "./index";
 import { AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai";
 
 const Wrap = styled.div`
@@ -18,7 +18,7 @@ const Button = styled.ul`
   display: flex;
 `;
 
-const Header = () => {
+const CalendarControl = () => {
   const { calendarYM, moveMonth } = useContext(CalendarContext);
 
   const deEvent = month => {
@@ -41,4 +41,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default CalendarControl;

@@ -1,12 +1,20 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { CalendarContext } from "./App";
+import { CalendarContext } from "./index";
 import moment from "moment";
 
 const Wrap = styled.tbody`
-  span {
+  td {
+    position: relative;
+    width: 14.28571428571429%;
+    height: 120px;
+    padding: 10px 0 0 10px;
+    cursor: pointer;
+  }
+
+  .day {
     display: inline-block;
-    margin-top: 10px;
+    margin-bottom: 6px;
     cursor: pointer;
     -ms-user-select: none;
     -moz-user-select: -moz-none;
@@ -14,12 +22,6 @@ const Wrap = styled.tbody`
     -webkit-user-select: none;
     user-select: none;
     pointer-events: none;
-  }
-
-  td {
-    width: 14.28571428571429%;
-    padding-left: 10px;
-    cursor: pointer;
   }
 
   .today {
@@ -113,7 +115,7 @@ const CalendarBody = () => {
                       className={dateStyle}
                       onClick={dataClick}
                     >
-                      <span>{days.format("D")}</span>
+                      <span className="day">{days.format("D")}</span>
                       <Text className="listText">{e.text}</Text>
                     </td>
                   );
@@ -133,7 +135,7 @@ const CalendarBody = () => {
                     className={dateStyle}
                     onClick={dataClick}
                   >
-                    <span>{days.format("D")}</span>
+                    <span className="day">{days.format("D")}</span>
                   </td>
                 );
               }

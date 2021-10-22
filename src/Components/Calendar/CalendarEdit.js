@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { CalendarContext } from "./App";
+import { CalendarContext } from "./index";
 
 const Wrap = styled.div`
   position: absolute;
