@@ -6,6 +6,7 @@ import { AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai";
 const Wrap = styled.div`
   display: flex;
   justify-content: center;
+  margin: 20px 0 10px;
 `;
 
 const YearMonth = styled.h2``;

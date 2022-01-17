@@ -13,8 +13,10 @@ const Wrap = styled.div`
 export default () => {
   return (
     <div>
-      <Route path="/" exact />
-      <Route path="/calendar" component={Calendar} />
+      <BrowserRouter>
+        <Route path="/" exact />
+        <Route path="/calendar" component={Calendar} />
+      </BrowserRouter>
     </div>
   );
 };

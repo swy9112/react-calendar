@@ -8,6 +8,8 @@ import CalendarEdit from "./CalendarEdit";
 
 const CalendarWrap = styled.table`
   width: 100%;
+  max-width: 1024px;
+  margin: auto;
   th,
   td {
     border: 1px solid #ccc;
